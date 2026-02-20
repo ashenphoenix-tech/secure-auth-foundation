@@ -367,7 +367,7 @@ Authentication systems require careful infrastructure and operational decisions.
 If you require implementation support or architectural consultation:
 
 📩 Contact: whitephoenix.tec@gmail.com  
-🌐 Organization: Ashen Phoenix
+🌐 Organization: Ashen Phoenix (www.ashenphoenix.tech)
 
 Engagements are scoped based on system complexity and security requirements.
 
