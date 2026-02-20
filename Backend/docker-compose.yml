@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+  auth-service:
+    build: ./auth-service
+    container_name: auth-service
+    env_file: .env
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://auth-postgres:5432/auth
+      SPRING_DATASOURCE_USERNAME: auth_user
+      SPRING_DATASOURCE_PASSWORD: auth_pass
+    depends_on:
+      - auth-postgres
+    ports:
+      - "8081:8081"
+
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    env_file: .env
+    depends_on:
+      - auth-service
+    ports:
+      - "8080:8080"
+
+  # ---- Per-service Postgres ----
+  auth-postgres:
+    image: postgres:17
+    container_name: auth-pg
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: auth_user
+      POSTGRES_PASSWORD: auth_pass
+      POSTGRES_DB: auth
+    ports: [ "5433:5432" ]
+    volumes: [ auth_pg_data:/var/lib/postgresql/data ]
+
+volumes:
+  auth_pg_data:

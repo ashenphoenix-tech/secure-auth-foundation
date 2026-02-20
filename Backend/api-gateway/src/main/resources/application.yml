@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      enabled: true
+      routes:
+        - id: auth
+          uri: http://auth-service:8081
+          predicates:
+            - Path=/auth/**
+          filters:
+            - PreserveHostHeader
+            - AddRequestHeader=X-GATEWAY-SECRET, ASHEN-PHOENIX-INTERNAL-KEY-987654
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
