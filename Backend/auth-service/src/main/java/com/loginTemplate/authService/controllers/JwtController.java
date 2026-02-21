@@ -89,6 +89,7 @@ public class JwtController {
 
             if (refreshToken == null || refreshToken.isEmpty()) {
                 AuthResponse exceptionResponse = new AuthResponse(HttpStatus.BAD_REQUEST,new HashMap<>(),"Refresh Token Missing in Cookie",1);
+                return ResponseEntity.status(exceptionResponse.statusCode()).body(exceptionResponse);
             }
 
             AuthResponse refreshTokenServiceResponse = jwtService.validateRefreshToken(refreshToken);
